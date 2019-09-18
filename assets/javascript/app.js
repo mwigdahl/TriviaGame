@@ -1,85 +1,127 @@
 //Set Global Variables
-var correctAnswer = 0;
-var incorrectAnswer = 0;
-var unanswered = 0;
-var time = 30;
+
 var clockRunning = false;
 var intervalId;
+
 //Create objects for questions
 
-var question1 = {
-    question: "A river which flows into another river is called a",
-    answers: ["Confluence", "Tributary", "Watershed", "Drainage basin"],
-    correct: "Tributary"
-};
+var gameData = {
+    correct: 0,
+    incorrect: 0,
+    unanswered: 0,
+    timer: 10
+}
 
-var question2 = {
-    question: "How many whitewater classification categories are there?",
-    answers: ["Four", "Six", "Two", "Nine"],
-    correct: "Six"
-};
+var myTrivia = [
+    {
+        question: "A river which flows into another river is called a",
+        answers: ["Confluence", "Tributary", "Watershed", "Drainage basin"],
+        correct: "Tributary"
+    },
+    {
+        question: "How many whitewater classification categories are there?",
+        answers: ["Four", "Six", "Two", "Nine"],
+        correct: "Six"
+    },
+    {
+        question: "The place where a river begins is called its:",
+        answers: ["Spring", "Confluence", "Source", "Watershed"],
+        correct: "Source"
+    },
+    {
+        question: "What year did john wesley powell run the grand canyon?",
+        answers: ["1845", "1869", "1922", "1908"],
+        correct: "1869"
+    }
+];
 
-var question3 = {
-    question: "The place where a river begins is called its:",
-    answers: ["Spring", "Confluence", "Source", "Watershed"],
-    correct: "Source"
-};
+// Display Trivia Intro Game
 
-var question4 = {
-    question: "What year did john wesley powell run the grand canyon?",
-    answers: ["1845", "1869", "1922", "1908"],
-    correct: "Source"
-};
+$('#trivia').html('<button>Start Game</button>');
+//Start Game
+$('#trivia').on('click', function () { 
+    displayQ();
+});
+
+function displayQ() { // load up and display question
+
+    $('#trivia').html(myTrivia[0].question);
+    createBtns();  // load up possible anwsers
+    countDown();
+}
+
+//Creates button for all possible answers to a question
+
+function createBtns() { 
+
+    for (var i = 0; i < myTrivia.length; i++) {
+
+        var myAnswers = $('<button>');
+        myAnswers.attr('data-name', myTrivia[i].answers[i]);
+        myAnswers.text(myTrivia[i].answers[i]);
+        $('#trivia-answers').append(myAnswers);
 
 
-// Display a Start Button
-
-// function triviaGame {
-
-// }
-
-//Initialize the game
-
-// Function to Run game
-function startGame() {
-
-
-
-    if (!clockRunning) {
-        intervalId = setInterval(countDown, 1000);
-        clockRunning = true;
     }
 }
-    // load up and display question
-    
-    // load up possible anwsers
-    
-    // on click function to 
-    
-    // start timer and display 
 
-    function countDown() {
-        time--;
-        $('#countdown').text("Time Remaining: " + time);
-        console.log(time);
-    }
-        //if timer runs out move to next question
-
+function nextQuestion() {
+    //need to move from current question to 
+}
 
 // If statement - If on click is true, then 
-    // run win function
-    
-    // else if loss function
+// run win function
+
+// else if loss function
 
 
 // Once game is complete, display
 
-    //correct anwsers, incorrect anwsers, unanswered
+//correct anwsers, incorrect anwsers, unanswered
+
+
+// may not need ???? // Function to Run game
+            function startGame() {
+
+                if (myTrivia[0]) {
+
+                }
+
+
+                if (!clockRunning) {
+                    intervalId = setInterval(countDown, 1000);
+                    clockRunning = true;
+                }
+            }
+
+
+// Timer Functions 
+
+function countDown() {
+    intervalId = setInterval(decrement, 1000);
+}
+
+function decrement() {
+    gameData.timer--;
+    $('#countdown').text("Time Remaining: " + gameData.timer);
+
+    if (gameData.timer === 0) {
+        stop();
+        nextQuestion(); //if timer runs out move to next question
+        gameData.unanswered++;
+    }
+
+}
+
+function stop() {
+    clearInterval(intervalId);
+}
+
 
 
 // Game Reset
 
 function reset() {
-    time = 30;
-    $('#countdown').text("Time Remaining: 30 Seconds");
+    gameData.timer = 10;
+    $('#countdown').text("Time Remaining: 10 Seconds");
 }
