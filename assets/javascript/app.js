@@ -9,13 +9,15 @@ var gameData = {
     correct: 0,
     incorrect: 0,
     unanswered: 0,
+    qcounter: 0,
+    endGame: false,
     timer: 10
 }
 
 var myTrivia = [
     {
         question: "A river which flows into another river is called a",
-        answers: ["Confluence", "Tributary", "Watershed", "Drainage basin"],
+        answers: ["Tributary", "Confluence", "Watershed", "Drainage basin"],
         correct: "Tributary"
     },
     {
@@ -36,39 +38,66 @@ var myTrivia = [
 ];
 
 // Display Trivia Intro Game
-
 $('#trivia').html('<button>Start Game</button>');
 //Start Game
-$('#trivia').on('click', function () { 
+$('#trivia').on('click', function () {
     displayQ();
 });
 
-function displayQ() { // load up and display question
+// load up and display question
+function displayQ() {
 
     $('#trivia').html(myTrivia[0].question);
     createBtns();  // load up possible anwsers
     countDown();
+    selectBtn();
+
 }
 
 //Creates button for all possible answers to a question
 
-function createBtns() { 
+function createBtns() {
 
     for (var i = 0; i < myTrivia.length; i++) {
 
         var myAnswers = $('<button>');
-        myAnswers.attr('data-name', myTrivia[i].answers[i]);
-        myAnswers.text(myTrivia[i].answers[i]);
+        myAnswers.attr('data-name', myTrivia[gameData.qcounter].answers[i]);
+        myAnswers.addClass('anwsers');
+        myAnswers.text(myTrivia[gameData.qcounter].answers[i]);
         $('#trivia-answers').append(myAnswers);
-
-
+ 
     }
+}
+
+function selectBtn() {
+
+    $('.anwsers').on('click', function () {
+    
+        var selectedAnwser = $('.anwsers').attr("data-name");
+        console.log("data-name ", selectedAnwser);
+    
+        if (selectedAnwser === myTrivia[gameData.qcounter].correct) {
+            alert("you're correct");
+            gameData.correct++;
+            questionResult();
+            stop();
+        }
+    });
 }
 
 function nextQuestion() {
     //need to move from current question to 
+
 }
 
+function questionResult() {
+    $('#trivia').empty();
+    $('#trivia-answers').empty();
+    $('#trivia').html('<h2>Show something.</h2>');
+    $('#wins').html('Your Wins: ', gameData.correct);
+    $('#losses').html('Your Losses: ', gameData.incorrect);
+
+}
 // If statement - If on click is true, then 
 // run win function
 
@@ -81,18 +110,20 @@ function nextQuestion() {
 
 
 // may not need ???? // Function to Run game
-            function startGame() {
+function startGame() {
 
-                if (myTrivia[0]) {
+    if (myTrivia[0]) {
 
-                }
+    }
 
 
-                if (!clockRunning) {
-                    intervalId = setInterval(countDown, 1000);
-                    clockRunning = true;
-                }
-            }
+    if (!clockRunning) {
+        intervalId = setInterval(countDown, 1000);
+        clockRunning = true;
+    }
+}
+//
+if (end)
 
 
 // Timer Functions 
