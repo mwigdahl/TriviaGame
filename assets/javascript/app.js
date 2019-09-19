@@ -39,6 +39,7 @@ var myTrivia = [
 
 // Display Trivia Intro Game
 $('#trivia').html('<button>Start Game</button>');
+
 //Start Game
 $('#trivia').on('click', function () {
     displayQ();
@@ -47,11 +48,22 @@ $('#trivia').on('click', function () {
 // load up and display question
 function displayQ() {
 
-    $('#trivia').html(myTrivia[0].question);
+    $('#trivia').html(myTrivia[gameData.qcounter].question);
     createBtns();  // load up possible anwsers
     countDown();
     selectBtn();
 
+    if (gameData.qcounter < 5 ) {
+        // make game switch
+
+    }
+
+    if (gameData.qcounter !== 5 ) {
+        gameData.qcounter++;
+    } else if (gameData.qcounter === 5 && !gameData.endGame) {
+        stop();
+        endGame = true;
+    }
 }
 
 //Creates button for all possible answers to a question
@@ -65,17 +77,17 @@ function createBtns() {
         myAnswers.addClass('anwsers');
         myAnswers.text(myTrivia[gameData.qcounter].answers[i]);
         $('#trivia-answers').append(myAnswers);
- 
+
     }
 }
 
 function selectBtn() {
 
     $('.anwsers').on('click', function () {
-    
+
         var selectedAnwser = $('.anwsers').attr("data-name");
         console.log("data-name ", selectedAnwser);
-    
+
         if (selectedAnwser === myTrivia[gameData.qcounter].correct) {
             alert("you're correct");
             gameData.correct++;
@@ -122,15 +134,15 @@ function startGame() {
         clockRunning = true;
     }
 }
-//
-if (end)
+
+// if (end)
 
 
-// Timer Functions 
+    // Timer Functions 
 
-function countDown() {
-    intervalId = setInterval(decrement, 1000);
-}
+    function countDown() {
+        intervalId = setInterval(decrement, 1000);
+    }
 
 function decrement() {
     gameData.timer--;
@@ -138,8 +150,8 @@ function decrement() {
 
     if (gameData.timer === 0) {
         stop();
-        nextQuestion(); //if timer runs out move to next question
         gameData.unanswered++;
+        //nextQuestion(); //if timer runs out move to next question
     }
 
 }
