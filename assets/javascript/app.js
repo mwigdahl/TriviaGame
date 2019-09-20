@@ -51,25 +51,43 @@ function displayQ() {
 
     $('#trivia').html(myTrivia[gameData.qcounter].question);
     createBtns();  // load up possible anwsers
-    selectBtn();
     countDown();
-    
+    console.log("timer ", gameData.timer);
 
-    
-    
+    $('.anwsers').on('click', function () {
 
-    if (gameData.qcounter < 5 ) {
-        // make game switch
+        var selectedAnwser = $(this).attr("data-name");
+        console.log("data-name ", selectedAnwser);
+        console.log(myTrivia[gameData.qcounter].correct);
 
-    }
-
-    if (gameData.qcounter !== 5 ) {
-        //gameData.qcounter++;
-    } else if (gameData.qcounter === 5 && !gameData.endGame) {
-        stop();
-        endGame = true;
-    }
+        if (selectedAnwser === myTrivia[gameData.qcounter].correct) {
+            gameData.qcounter++;
+            $('#trivia-answers').empty();
+            $('#trivia').html('<h2>CORRECT!!!</h2>');
+            stop();
+            questionResult();
+        } else if (selectedAnwser !== myTrivia[gameData.qcounter].correct) {
+            gameData.incorrect++;
+            $('#trivia-answers').empty();
+            $('#trivia').html('<h2>WRONG!!!</h2>');
+            questionResult();
+            stop();
+        }
+        if (gameData.qcounter !== 5) {
+            gameData.qcounter++;
+        
+        }
+        
+        if (gameData.qcounter !== 5) {
+            //gameData.qcounter++;
+        } else if (gameData.qcounter === 5 && !gameData.endGame) {
+            stop();
+            endGame = true;
+            finalScore();
+        }
+    });
 }
+
 
 //Creates button for all possible answers to a question
 
@@ -86,32 +104,15 @@ function createBtns() {
 
 }
 
-function selectBtn() {
-    $('.anwsers').on('click', function () {
-
-        var selectedAnwser = $(this).attr("data-name");
-        console.log("data-name ", selectedAnwser);
-        console.log(myTrivia[gameData.qcounter].correct);   
-        
-        if (selectedAnwser === myTrivia[gameData.qcounter].correct) {
-            gameData.qcounter++;
-            $('#trivia-answers').empty();
-            $('#trivia').html('<h2>CORRECT!!!</h2>');
-            questionResult();
-            stop();
-        } else if (selectedAnwser !== myTrivia[gameData.qcounter].correct) {
-            gameData.incorrect++;
-            $('#trivia-answers').empty();
-            $('#trivia').html('<h2>WRONG!!!</h2>');
-            questionResult();
-            stop();
-        }
-    });
-
+function finalScore() {
+    
 }
 
 function nextQuestion() {
-    //need to move from current question to 
+    $('#trivia').html('<button>Next Question</button>');
+    $('#trivia').on('click', function () {
+        displayQ();
+    });
 
 }
 
@@ -121,6 +122,10 @@ function questionResult() {
     // $('#trivia').html('<h2>Show something.</h2>');
     $('#wins').html('Your Wins: ', gameData.correct);
     $('#losses').html('Your Losses: ', gameData.incorrect);
+    reset();
+    nextQuestion();
+
+
 }
 // If statement - If on click is true, then 
 // run win function
@@ -136,11 +141,11 @@ function questionResult() {
 // if (end)
 
 
-    // Timer Functions 
+// Timer Functions 
 
-    function countDown() {
-        intervalId = setInterval(decrement, 1000);
-    }
+function countDown() {
+    intervalId = setInterval(decrement, 1000);
+}
 
 function decrement() {
     gameData.timer--;
@@ -164,6 +169,7 @@ function stop() {
 // Game Reset
 
 function reset() {
+    $('#countdown').empty();
     gameData.timer = 10;
     $('#countdown').text("Time Remaining: 10 Seconds");
 }
