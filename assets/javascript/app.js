@@ -45,13 +45,18 @@ $('#trivia').on('click', function () {
     displayQ();
 });
 
+
 // load up and display question
 function displayQ() {
 
     $('#trivia').html(myTrivia[gameData.qcounter].question);
     createBtns();  // load up possible anwsers
-    countDown();
     selectBtn();
+    countDown();
+    
+
+    
+    
 
     if (gameData.qcounter < 5 ) {
         // make game switch
@@ -59,7 +64,7 @@ function displayQ() {
     }
 
     if (gameData.qcounter !== 5 ) {
-        gameData.qcounter++;
+        //gameData.qcounter++;
     } else if (gameData.qcounter === 5 && !gameData.endGame) {
         stop();
         endGame = true;
@@ -69,7 +74,6 @@ function displayQ() {
 //Creates button for all possible answers to a question
 
 function createBtns() {
-
     for (var i = 0; i < myTrivia.length; i++) {
 
         var myAnswers = $('<button>');
@@ -79,22 +83,31 @@ function createBtns() {
         $('#trivia-answers').append(myAnswers);
 
     }
+
 }
 
 function selectBtn() {
-
     $('.anwsers').on('click', function () {
 
-        var selectedAnwser = $('.anwsers').attr("data-name");
+        var selectedAnwser = $(this).attr("data-name");
         console.log("data-name ", selectedAnwser);
-
+        console.log(myTrivia[gameData.qcounter].correct);   
+        
         if (selectedAnwser === myTrivia[gameData.qcounter].correct) {
-            alert("you're correct");
-            gameData.correct++;
+            gameData.qcounter++;
+            $('#trivia-answers').empty();
+            $('#trivia').html('<h2>CORRECT!!!</h2>');
+            questionResult();
+            stop();
+        } else if (selectedAnwser !== myTrivia[gameData.qcounter].correct) {
+            gameData.incorrect++;
+            $('#trivia-answers').empty();
+            $('#trivia').html('<h2>WRONG!!!</h2>');
             questionResult();
             stop();
         }
     });
+
 }
 
 function nextQuestion() {
@@ -103,12 +116,11 @@ function nextQuestion() {
 }
 
 function questionResult() {
-    $('#trivia').empty();
+    //$('#trivia').empty();
     $('#trivia-answers').empty();
-    $('#trivia').html('<h2>Show something.</h2>');
+    // $('#trivia').html('<h2>Show something.</h2>');
     $('#wins').html('Your Wins: ', gameData.correct);
     $('#losses').html('Your Losses: ', gameData.incorrect);
-
 }
 // If statement - If on click is true, then 
 // run win function
@@ -120,20 +132,6 @@ function questionResult() {
 
 //correct anwsers, incorrect anwsers, unanswered
 
-
-// may not need ???? // Function to Run game
-function startGame() {
-
-    if (myTrivia[0]) {
-
-    }
-
-
-    if (!clockRunning) {
-        intervalId = setInterval(countDown, 1000);
-        clockRunning = true;
-    }
-}
 
 // if (end)
 
@@ -158,6 +156,7 @@ function decrement() {
 
 function stop() {
     clearInterval(intervalId);
+    $('#countdown').empty();
 }
 
 
