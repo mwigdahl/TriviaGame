@@ -51,12 +51,14 @@ function displayQ() {
  if (gameData.qcounter < 4  && !gameData.endGame) {
     $('#trivia').html(myTrivia[gameData.qcounter].question);
     $('#answer').empty();
+    $('#next-question').empty();
     createBtns();  // load up possible anwsers
     countDown();
     
 } else if (gameData.qcounter === 4  && !gameData.endGame) {
     $('#trivia').empty();
     $('#answer').empty();
+    $('#next-question').empty();
     endGame = true;
     finalScore();
 } else;
@@ -82,7 +84,7 @@ function displayQ() {
         } else if (gameData.timer > 0 && selectedAnwser !== myTrivia[gameData.qcounter].correct) {
             gameData.incorrect++;
             $('#trivia-choices').empty();
-            $('#answer').html('<h2>WRONG!!!</h2>');
+            $('#answer').html('<h2>WRONG!!!</h2><p>The correct answer is ' + myTrivia[gameData.qcounter].correct + "</p>");
             $('#wins').html('Your Wins: ' + gameData.correct);
             $('#losses').html('Your Losses: ' + gameData.incorrect);
             $('#unanswered').html('Unanswered: ' + gameData.unanswered);
@@ -129,12 +131,13 @@ function finalScore() {
 
 function nextQuestion() {
     gameData.qcounter++;
-    $('#trivia').html('<button>Next Question</button>');
-    $('#trivia').on('click', function () {
+    $('#trivia').empty();
+    $('#next-question').html('<button>Next Question</button>');
+    $('#next-question').on('click', function () {
         displayQ();
     });
 if (gameData.endGame) {
-    finalScore()
+    finalScore();
 }
 }
 

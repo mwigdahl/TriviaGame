@@ -1,0 +1,43 @@
+body {
+    background-image:url('../images/mountains_and_water.jpg');
+    color:white;
+    font-size:20px;
+}
+.subtitle {
+    font-size: 1.5em;
+
+}
+
+h1 {
+    font-size:5em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#trivia {
+    font-size:2em;
+}
+
+.container {
+    background: rgba(0,0,0,.8);
+}
+
+.funstyle {
+    color: #C2531A;
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    text-shadow: 1px 2px 0px #fff;
+    font-family: "Permanent Marker", cursive;
+    font-size: 5em;
+    display: inline-block;
+}
+
+button {
+    background: #C2531A;
+    color: white;
+    font-size: 1em;
+    margin:20px;
+    padding: 10px 20px;
+}

@@ -1,45 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <title>Trivia Game</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="assets/css/reset.css">    -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <head>
+        <meta charset="utf-8">
+        <title>Trivia Game</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
+    </head>
 
-</head>
+    <body class="">
+        <div class="container">
+            <div class="row text-center py-5 mt-5">
+                <div class="col-md-12">
+                    <h1 class="funstyle">River Trivia</h1>
+                    <p><span class="subtitle">How much do you know about rivers?</span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div id="countdown"></div>
+                    <div id="trivia">Trivia Question</div>
+                    <div id="answer"></div>
+                    <div id="trivia-choices"></div>
+                </div>
+            </div>
 
-<body class="">
-    <div class="container">
-        <div class="row text-center py-5">
-            <div class="col-md-12">
-                <h1>Trivia Game</h1>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div id="counter"></div>
+                    <div id="wins"></div>
+                    <div id="losses"></div>
+                    <div id="unanswered"></div>
+                    <div id="next-question"></div>
+                </div>
+            </div>
+            <div class="row text-center py-5">
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div id="countdown"></div>
-                <div id="trivia">Trivia Question</div>
-                <div id="answer"></div>
-                <div id="trivia-choices"></div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div id="counter"></div>
-                <div id="wins"></div>
-                <div id="losses"></div>
-                <div id="unanswered"></div>
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript" src="assets/javascript/app.js"></script>
-
-</body>
+        <script type="text/javascript" src="assets/javascript/app.js"></script>
+    </body>
 
 </html>
