@@ -1,10 +1,5 @@
 //Set Global Variables
-
-var clockRunning = false;
 var intervalId;
-
-//Create objects for questions
-
 var gameData = {
     correct: 0,
     incorrect: 0,
@@ -13,7 +8,6 @@ var gameData = {
     endGame: false,
     timer: 10
 }
-
 var myTrivia = [
     {
         question: "A river which flows into another river is called a",
@@ -48,30 +42,25 @@ $('#trivia').on('click', function () {
 
 // load up and display question
 function displayQ() {
- if (gameData.qcounter < 4  && !gameData.endGame) {
-    $('#trivia').html(myTrivia[gameData.qcounter].question);
-    $('#answer').empty();
-    $('#next-question').empty();
-    createBtns();  // load up possible anwsers
-    countDown();
-    
-} else if (gameData.qcounter === 4  && !gameData.endGame) {
-    $('#trivia').empty();
-    $('#answer').empty();
-    $('#next-question').empty();
-    endGame = true;
-    finalScore();
-} else;
-   
-    //console.log("timer ", gameData.timer);
+    if (gameData.qcounter < 4 && !gameData.endGame) {
+        $('#trivia').html(myTrivia[gameData.qcounter].question);
+        $('#answer').empty();
+        $('#next-question').empty();
+        createBtns();  // load up possible choices
+        countDown();  // start interval countdown
 
+    } else if (gameData.qcounter === 4 && !gameData.endGame) {
+        $('#trivia').empty();
+        $('#answer').empty();
+        $('#next-question').empty();
+        endGame = true;
+        finalScore();
+    }
     $('.anwsers').on('click', function () {
-        
-        let selectedAnwser = $(this).attr("data-name");
-        console.log("selectedAnswer", selectedAnwser);
-        console.log("Correct Answer", myTrivia[gameData.qcounter].correct);
 
-        if ( gameData.timer > 0 && selectedAnwser === myTrivia[gameData.qcounter].correct) {
+        let selectedAnwser = $(this).attr("data-name");
+
+        if (gameData.timer > 0 && selectedAnwser === myTrivia[gameData.qcounter].correct) {
             gameData.correct++;
             $('#trivia-choices').empty();
             $('#answer').html('<h2>CORRECT!!!</h2>');
@@ -80,7 +69,7 @@ function displayQ() {
             $('#unanswered').html('Unanswered: ' + gameData.unanswered);
             stop();
             nextQuestion();
-            
+
         } else if (gameData.timer > 0 && selectedAnwser !== myTrivia[gameData.qcounter].correct) {
             gameData.incorrect++;
             $('#trivia-choices').empty();
@@ -90,7 +79,7 @@ function displayQ() {
             $('#unanswered').html('Unanswered: ' + gameData.unanswered);
             stop();
             nextQuestion();
-        } else if (gameData.timer === 0) {
+        } else if (gameData.timer === 0) {  // Not working properly-- need help.
             gameData.unanswered++;
             $('#trivia-choices').empty();
             $('#trivia').html('<h2>OOPS!!!</h2>');
@@ -99,12 +88,9 @@ function displayQ() {
             $('#unanswered').html('Unanswered: ' + gameData.unanswered);
             stop();
             nextQuestion();
-
         }
     });
 }
-
-
 
 //Creates button for all possible choices to a question
 
@@ -117,9 +103,7 @@ function createBtns() {
         myChoices.addClass('anwsers');
         myChoices.text(myTrivia[gameData.qcounter].choices[i]);
         $('#trivia-choices').append(myChoices);
-
     }
-
 }
 
 function finalScore() {
@@ -136,33 +120,10 @@ function nextQuestion() {
     $('#next-question').on('click', function () {
         displayQ();
     });
-if (gameData.endGame) {
-    finalScore();
+    if (gameData.endGame) {
+        finalScore();
+    }
 }
-}
-
-function questionResult() {
-    //gameData.qcounter++;
-    $('#trivia').empty();
-    $('#trivia-choices').empty();
-    reset();
-    //nextQuestion();
-
-
-}
-// If statement - If on click is true, then 
-// run win function
-
-// else if loss function
-
-
-// Once game is complete, display
-
-//correct anwsers, incorrect anwsers, unanswered
-
-
-// if (end)
-
 
 // Timer Functions 
 
@@ -175,27 +136,9 @@ function countDown() {
 function decrement() {
     gameData.timer--;
     $('#countdown').text("Time Remaining: " + gameData.timer);
-    
-    if (gameData.timer === 0) {
-        stop();
-        gameData.unanswered++;
-        //nextQuestion(); //if timer runs out move to next question
-    }
-    
 }
 
 function stop() {
     clearInterval(intervalId);
     $('#countdown').empty();
-    //gameData.timer = 10;
-}
-
-
-
-// Game Reset
-
-function reset() {
-    $('#countdown').empty();
-    gameData.timer = 10;
-    $('#countdown').text("Time Remaining: 10 Seconds");
 }
